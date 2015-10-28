@@ -14,9 +14,10 @@ import scala.collection.JavaConversions._
  * Created by shashidhar on 28/10/15.
  */
 class ZookeeperConfigSource(val client:CuratorFramework,
-                            val configRootPath:String,
-                            val pathChildrenCache:PathChildrenCache) extends WatchedConfigurationSource
+                            val configRootPath:String) extends WatchedConfigurationSource
 {
+  val pathChildrenCache = new PathChildrenCache(client,configRootPath,true)
+
   val charset = Charset.forName("UTF-8")
 
   val listeners = new CopyOnWriteArrayList[WatchedUpdateListener]()
